@@ -6,7 +6,6 @@ C:\Users\kosta\backup\nauka\Master Degree\Portfolio\RecipesApp\RecipeManager\bin
 C:\Users\kosta\backup\nauka\Master Degree\Portfolio\RecipesApp\RecipeManager\obj\Debug\net9.0-windows\MainWindow.g.cs
 C:\Users\kosta\backup\nauka\Master Degree\Portfolio\RecipesApp\RecipeManager\obj\Debug\net9.0-windows\App.g.cs
 C:\Users\kosta\backup\nauka\Master Degree\Portfolio\RecipesApp\RecipeManager\obj\Debug\net9.0-windows\RecipeManager_MarkupCompile.cache
-C:\Users\kosta\backup\nauka\Master Degree\Portfolio\RecipesApp\RecipeManager\obj\Debug\net9.0-windows\RecipeManager_MarkupCompile.lref
 C:\Users\kosta\backup\nauka\Master Degree\Portfolio\RecipesApp\RecipeManager\obj\Debug\net9.0-windows\MainWindow.baml
 C:\Users\kosta\backup\nauka\Master Degree\Portfolio\RecipesApp\RecipeManager\obj\Debug\net9.0-windows\RecipeManager.g.resources
 C:\Users\kosta\backup\nauka\Master Degree\Portfolio\RecipesApp\RecipeManager\obj\Debug\net9.0-windows\RecipeManager.GeneratedMSBuildEditorConfig.editorconfig

@@ -1,23 +1,45 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using System.Windows.Controls; 
 
-namespace RecipeManager;
-
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
-public partial class MainWindow : Window
+namespace RecipeManager
 {
-    public MainWindow()
+    public partial class MainWindow : Window
     {
-        InitializeComponent();
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                var watermark = GetWatermarkForTextBox(textBox);
+                if (watermark != null)
+                {
+                    watermark.Visibility = Visibility.Collapsed;  //This we need for hiding a placeholder when user is writing something   
+                }            }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox textBox && string.IsNullOrEmpty(textBox.Text))
+            {
+                var watermark = GetWatermarkForTextBox(textBox);
+                if (watermark != null)
+                {
+                    watermark.Visibility = Visibility.Visible;  // But if the field is empty, we should show the placeholder 
+                }
+            }
+        }
+
+        private TextBlock GetWatermarkForTextBox(TextBox textBox)
+        {
+            if (textBox.Name == "RecipeNameTextBox")
+                return RecipeNameWatermark;
+            else if (textBox.Name == "RecipeDescriptionTextBox")
+                return RecipeDescriptionWatermark;
+            else  throw new InvalidOperationException("Unknown TextBox name");
+        }
     }
 }
