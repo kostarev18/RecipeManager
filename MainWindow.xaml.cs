@@ -64,5 +64,24 @@ namespace RecipeManager
             RecipeNameTextBox.Clear();
             RecipeDescriptionTextBox.Clear();
         }
+
+        private void DeleteRecipeOnClick(object sender, RoutedEventArgs e)
+        {
+            if (RecipeListBox.SelectedItem is string selectedRecipeName)
+            {
+                var recipes = DatabaseHelper.GetAllRecipes();
+                var recipeToDelete = recipes.FirstOrDefault(r => r.Name == selectedRecipeName);
+
+                if (recipeToDelete != null)
+                {
+                    DatabaseHelper.DeleteRecipe(recipeToDelete);
+                    RecipeListBox.Items.Remove(selectedRecipeName);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a recipe to delete");
+            }
+        }
     }
 }

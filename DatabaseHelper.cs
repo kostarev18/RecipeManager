@@ -1,5 +1,6 @@
 using SQLite;
 using System;
+using System.Data.Entity.Validation;
 using System.IO;
 
 public class DatabaseHelper
@@ -27,5 +28,11 @@ public class DatabaseHelper
     {
         var db = GetConnection();
         return db.Table<Recipe>().ToList();
+    }
+
+    public static void DeleteRecipe(Recipe recipe)
+    {
+        var db = GetConnection();
+        db.Delete(recipe);
     }
 }
