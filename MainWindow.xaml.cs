@@ -8,6 +8,12 @@ namespace RecipeManager
         public MainWindow()
         {
             InitializeComponent();
+
+            var recipes = DatabaseHelper.GetAllRecipes();
+            foreach (var recipe in recipes)
+            {
+                RecipeListBox.Items.Add(recipe.Name);
+            }
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -18,7 +24,8 @@ namespace RecipeManager
                 if (watermark != null)
                 {
                     watermark.Visibility = Visibility.Collapsed;  //This we need for hiding a placeholder when user is writing something   
-                }            }
+                }
+            }
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -39,7 +46,23 @@ namespace RecipeManager
                 return RecipeNameWatermark;
             else if (textBox.Name == "RecipeDescriptionTextBox")
                 return RecipeDescriptionWatermark;
-            else  throw new InvalidOperationException("Unknown TextBox name");
+            else throw new InvalidOperationException("Unknown TextBox name");
+        }
+
+        private void AddRecipeOnClick(object sender, RoutedEventArgs e)
+        {
+            var newRecipe = new Recipe
+            {
+                Name = RecipeNameTextBox.Text,
+                Description = RecipeDescriptionTextBox.Text
+            };
+
+            DatabaseHelper.AddRecipe(newRecipe);
+
+            RecipeListBox.Items.Add(newRecipe.Name);
+
+            RecipeNameTextBox.Clear();
+            RecipeDescriptionTextBox.Clear();
         }
     }
 }
