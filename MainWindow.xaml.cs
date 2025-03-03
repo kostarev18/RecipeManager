@@ -5,6 +5,7 @@ namespace RecipeManager
 {
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -13,6 +14,50 @@ namespace RecipeManager
             foreach (var recipe in recipes)
             {
                 RecipeListBox.Items.Add(recipe.Name);
+            }
+        }
+
+        private void AddRecipeOnClick(object sender, RoutedEventArgs e)
+        {
+            string name = RecipeNameTextBox.Text.Trim();
+            string description = RecipeDescriptionTextBox.Text.Trim();
+
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(description))
+            {
+                MessageBox.Show("Name and Description cannot be empty!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var newRecipe = new Recipe
+            {
+                Name = RecipeNameTextBox.Text,
+                Description = RecipeDescriptionTextBox.Text
+            };
+
+            DatabaseHelper.AddRecipe(newRecipe);
+
+            RecipeListBox.Items.Add(newRecipe.Name);
+
+            RecipeNameTextBox.Clear();
+            RecipeDescriptionTextBox.Clear();
+        }
+
+        private void DeleteRecipeOnClick(object sender, RoutedEventArgs e)
+        {
+            if (RecipeListBox.SelectedItem is string selectedRecipeName)
+            {
+                var recipes = DatabaseHelper.GetAllRecipes();
+                var recipeToDelete = recipes.FirstOrDefault(r => r.Name == selectedRecipeName);
+
+                if (recipeToDelete != null)
+                {
+                    DatabaseHelper.DeleteRecipe(recipeToDelete);
+                    RecipeListBox.Items.Remove(selectedRecipeName);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a recipe to delete");
             }
         }
 
@@ -49,39 +94,5 @@ namespace RecipeManager
             else throw new InvalidOperationException("Unknown TextBox name");
         }
 
-        private void AddRecipeOnClick(object sender, RoutedEventArgs e)
-        {
-            var newRecipe = new Recipe
-            {
-                Name = RecipeNameTextBox.Text,
-                Description = RecipeDescriptionTextBox.Text
-            };
-
-            DatabaseHelper.AddRecipe(newRecipe);
-
-            RecipeListBox.Items.Add(newRecipe.Name);
-
-            RecipeNameTextBox.Clear();
-            RecipeDescriptionTextBox.Clear();
-        }
-
-        private void DeleteRecipeOnClick(object sender, RoutedEventArgs e)
-        {
-            if (RecipeListBox.SelectedItem is string selectedRecipeName)
-            {
-                var recipes = DatabaseHelper.GetAllRecipes();
-                var recipeToDelete = recipes.FirstOrDefault(r => r.Name == selectedRecipeName);
-
-                if (recipeToDelete != null)
-                {
-                    DatabaseHelper.DeleteRecipe(recipeToDelete);
-                    RecipeListBox.Items.Remove(selectedRecipeName);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Select a recipe to delete");
-            }
-        }
     }
 }

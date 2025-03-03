@@ -44,9 +44,17 @@
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
           "dependencies": {
+            "Microsoft.Windows.Compatibility": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
             "SQLite-net-pcl": {
               "target": "Package",
               "version": "[1.9.172, )"
+            },
+            "SQLitePCLRaw.bundle_e_sqlite3": {
+              "target": "Package",
+              "version": "[2.1.10, )"
             },
             "System.Data.SQLite": {
               "target": "Package",
